@@ -462,7 +462,7 @@
   <div id="auth-screen">
     <div class="auth-card">
       <div class="auth-logo">
-        <h1>🔐 SecureChat Simple</h1>
+        <h1> SecureChat Simple</h1>
         <p>SHA-256 · RSA-2048 · AES-GCM</p>
       </div>
 
@@ -762,7 +762,7 @@
         // Guardar clave privada en sessionStorage
         sessionStorage.setItem(`pk_${username}`, keys.privateKeyBase64);
 
-        showSuccess(errorEl, '✓ Cuenta creada. Puedes iniciar sesión.');
+        showSuccess(errorEl, ' Cuenta creada. Puedes iniciar sesión.');
         setTimeout(() => {
           switchTab('login');
           document.getElementById('login-username').value = username;
