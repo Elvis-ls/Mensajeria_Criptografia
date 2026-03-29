@@ -1,47 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SecureChat — Mensajería Cifrada</title>
+  <title>SecureChat Simple — E2EE Demo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
   <style>
-    /* ── Paleta ejecutiva ──────────────────────────────────────
-       Navy profundo · Gris pizarra · Crema cálido · Oro apagado
-    ────────────────────────────────────────────────────────── */
-    :root {
-      --navy:      #1a2340;
-      --navy-dark: #111829;
-      --navy-mid:  #233058;
-      --slate:     #3d4f6e;
-      --slate-lt:  #6b7f9e;
-      --gold:      #a8895a;
-      --gold-lt:   #c8a97a;
-      --cream:     #f5f2ec;
-      --cream-dk:  #ede9e1;
-      --white:     #ffffff;
-      --text-dark: #1a2340;
-      --text-body: #2e3d56;
-      --text-muted:#7a8ba6;
-      --border:    #ddd8cf;
-      --border-lt: #edeae4;
-      --sent-bg:   #eef1f8;
-      --recv-bg:   #ffffff;
-      --danger:    #8b2e2e;
-      --success:   #2e5e3e;
-      --serif:     'Cormorant Garamond', Georgia, serif;
-      --sans:      'DM Sans', sans-serif;
-      --mono:      'DM Mono', monospace;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f1419;
+      --surface: #1a1f2e;
+      --primary: #4a9eff;
+      --primary-dark: #357abd;
+      --text: #e4e6eb;
+      --text-muted: #8b92a8;
+      --border: #2a3141;
+      --success: #4caf82;
+      --danger: #ef5350;
+      --warning: #ffa726;
+    }
 
     body {
-      background: var(--cream);
-      color: var(--text-body);
-      font-family: var(--sans);
-      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
       height: 100vh;
       overflow: hidden;
       display: flex;
@@ -49,202 +40,155 @@
       justify-content: center;
     }
 
-    /* ══════════════════════════════════════════════════════════
+    /* ════════════════════════════════════════════════════════
        AUTH SCREEN
-    ══════════════════════════════════════════════════════════ */
+    ════════════════════════════════════════════════════════ */
     #auth-screen {
       width: 100%;
-      max-width: 440px;
+      max-width: 420px;
       padding: 2rem;
-      animation: fadeIn 0.4s ease;
-    }
-
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-
-    .auth-header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .auth-emblem {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 52px;
-      height: 52px;
-      background: var(--navy);
-      border-radius: 4px;
-      margin-bottom: 1.2rem;
-    }
-
-    .auth-emblem svg {
-      width: 26px;
-      height: 26px;
-      fill: none;
-      stroke: var(--gold);
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .auth-title {
-      font-family: var(--serif);
-      font-size: 2.2rem;
-      font-weight: 600;
-      color: var(--navy);
-      letter-spacing: 0.01em;
-      line-height: 1.1;
-    }
-
-    .auth-subtitle {
-      color: var(--text-muted);
-      font-size: 0.82rem;
-      margin-top: 0.4rem;
-      font-weight: 300;
-      letter-spacing: 0.03em;
-    }
-
-    .auth-divider {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      margin: 1.2rem 0 0;
-    }
-
-    .auth-divider::before,
-    .auth-divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .auth-divider span {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--gold);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      white-space: nowrap;
     }
 
     .auth-card {
-      background: var(--white);
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 2px;
-      padding: 2rem;
-      box-shadow: 0 2px 16px rgba(26, 35, 64, 0.07), 0 1px 3px rgba(26,35,64,0.05);
+      border-radius: 12px;
+      padding: 2.5rem;
     }
 
-    .tab-bar {
+    .auth-logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .auth-logo h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .auth-logo p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .tabs {
       display: flex;
-      border-bottom: 1px solid var(--border-lt);
-      margin-bottom: 1.8rem;
-      gap: 0;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
     }
 
     .tab-btn {
       flex: 1;
-      padding: 0.7rem 0;
+      padding: 0.75rem;
+      background: none;
       border: none;
       border-bottom: 2px solid transparent;
-      background: transparent;
       color: var(--text-muted);
-      font-family: var(--sans);
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
       cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
       transition: all 0.2s;
-      margin-bottom: -1px;
     }
 
-    .tab-btn:hover { color: var(--navy); }
+    .tab-btn:hover {
+      color: var(--text);
+    }
 
     .tab-btn.active {
-      color: var(--navy);
-      border-bottom-color: var(--gold);
+      color: var(--primary);
+      border-bottom-color: var(--primary);
     }
 
     .form-group {
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
     }
 
     label {
       display: block;
-      font-size: 0.7rem;
+      font-size: 0.85rem;
       font-weight: 500;
-      color: var(--slate);
-      margin-bottom: 0.4rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      color: var(--text);
     }
 
     input {
       width: 100%;
-      background: var(--cream);
+      padding: 0.75rem 1rem;
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 2px;
-      color: var(--text-dark);
-      font-family: var(--sans);
-      font-size: 0.9rem;
-      padding: 0.65rem 0.9rem;
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 0.95rem;
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s;
     }
 
     input:focus {
-      border-color: var(--navy);
-      box-shadow: 0 0 0 3px rgba(26, 35, 64, 0.07);
-      background: var(--white);
+      border-color: var(--primary);
     }
 
-    input::placeholder { color: var(--text-muted); font-weight: 300; }
+    input::placeholder {
+      color: var(--text-muted);
+    }
 
     .btn-primary {
       width: 100%;
-      padding: 0.75rem;
-      background: var(--navy);
+      padding: 0.85rem;
+      background: var(--primary);
       border: none;
-      border-radius: 2px;
-      color: var(--cream);
-      font-family: var(--sans);
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      border-radius: 6px;
+      color: white;
+      font-weight: 600;
+      font-size: 0.95rem;
       cursor: pointer;
       transition: background 0.2s;
-      margin-top: 0.4rem;
     }
 
-    .btn-primary:hover { background: var(--navy-mid); }
-    .btn-primary:disabled { background: var(--slate-lt); cursor: not-allowed; }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-primary:disabled {
+      background: var(--border);
+      cursor: not-allowed;
+    }
 
     .error-msg {
-      background: #fdf1f1;
+      background: rgba(239, 83, 80, 0.1);
       border-left: 3px solid var(--danger);
       color: var(--danger);
-      font-size: 0.8rem;
-      padding: 0.6rem 0.8rem;
-      margin-top: 0.8rem;
+      padding: 0.75rem 1rem;
+      margin-top: 1rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
       display: none;
-      border-radius: 0 2px 2px 0;
     }
 
-    .keygen-notice {
-      font-family: var(--mono);
-      font-size: 0.65rem;
+    .success-msg {
+      background: rgba(76, 175, 130, 0.1);
+      border-left: 3px solid var(--success);
+      color: var(--success);
+    }
+
+    .crypto-note {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: rgba(74, 158, 255, 0.05);
+      border: 1px solid rgba(74, 158, 255, 0.2);
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
       color: var(--text-muted);
       text-align: center;
-      margin-top: 0.9rem;
-      letter-spacing: 0.03em;
     }
 
-    /* ══════════════════════════════════════════════════════════
-       APP LAYOUT
-    ══════════════════════════════════════════════════════════ */
+    /* ════════════════════════════════════════════════════════
+       APP SCREEN
+    ════════════════════════════════════════════════════════ */
     #app-screen {
       display: none;
       width: 100%;
@@ -252,143 +196,89 @@
       flex-direction: row;
     }
 
-    /* ── Sidebar ─────────────────────────────────────────────── */
+    /* Sidebar */
     .sidebar {
-      width: 270px;
-      min-width: 270px;
-      background: var(--navy-dark);
+      width: 300px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      height: 100vh;
     }
 
     .sidebar-header {
-      padding: 1.4rem 1.2rem 1.1rem;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
     }
 
-    .app-brand {
-      font-family: var(--serif);
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--cream);
-      letter-spacing: 0.04em;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    .sidebar-header h2 {
+      font-size: 1.2rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
     }
 
-    .app-brand-dot {
-      width: 6px;
-      height: 6px;
-      background: var(--gold);
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .sidebar-user-row {
+    .user-info {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 0.8rem;
-    }
-
-    .sidebar-username {
-      font-size: 0.75rem;
-      color: var(--slate-lt);
-      font-weight: 300;
-      letter-spacing: 0.05em;
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
 
     .btn-logout {
-      background: none;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 2px;
-      color: var(--slate-lt);
+      padding: 0.4rem 0.8rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-muted);
       cursor: pointer;
-      font-size: 0.65rem;
-      padding: 0.25rem 0.55rem;
-      font-family: var(--sans);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      font-size: 0.8rem;
       transition: all 0.2s;
     }
 
     .btn-logout:hover {
-      border-color: rgba(168,137,90,0.5);
-      color: var(--gold-lt);
-    }
-
-    .search-bar {
-      padding: 0.8rem 1rem;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .search-bar input {
-      background: rgba(255,255,255,0.05);
-      border-color: rgba(255,255,255,0.1);
-      color: var(--cream);
-      font-size: 0.8rem;
-      padding: 0.45rem 0.8rem;
-    }
-
-    .search-bar input:focus {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(168,137,90,0.4);
-      box-shadow: none;
-    }
-
-    .search-bar input::placeholder { color: rgba(255,255,255,0.25); }
-
-    .sidebar-section-label {
-      padding: 1rem 1.2rem 0.4rem;
-      font-size: 0.6rem;
-      font-weight: 500;
-      color: var(--gold);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+      border-color: var(--danger);
+      color: var(--danger);
     }
 
     .contacts-list {
       flex: 1;
       overflow-y: auto;
+      padding: 1rem;
     }
 
-    .contacts-list::-webkit-scrollbar { width: 3px; }
-    .contacts-list::-webkit-scrollbar-track { background: transparent; }
-    .contacts-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); }
-
     .contact-item {
-      padding: 0.75rem 1.2rem;
+      padding: 1rem;
+      margin-bottom: 0.5rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      cursor: pointer;
-      border-left: 2px solid transparent;
-      transition: all 0.15s;
     }
 
-    .contact-item:hover { background: rgba(255,255,255,0.04); }
+    .contact-item:hover {
+      border-color: var(--primary);
+    }
 
     .contact-item.active {
-      background: rgba(168,137,90,0.1);
-      border-left-color: var(--gold);
+      background: rgba(74, 158, 255, 0.1);
+      border-color: var(--primary);
     }
 
     .avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 2px;
-      background: var(--navy-mid);
-      border: 1px solid rgba(255,255,255,0.1);
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--serif);
-      font-size: 1rem;
       font-weight: 600;
-      color: var(--gold-lt);
-      flex-shrink: 0;
+      font-size: 1.1rem;
+      color: white;
       position: relative;
     }
 
@@ -396,727 +286,743 @@
       position: absolute;
       bottom: -2px;
       right: -2px;
-      width: 7px;
-      height: 7px;
-      background: #4caf82;
+      width: 10px;
+      height: 10px;
+      background: var(--success);
+      border: 2px solid var(--surface);
       border-radius: 50%;
-      border: 1.5px solid var(--navy-dark);
     }
 
     .contact-name {
-      font-size: 0.85rem;
-      color: rgba(245,242,236,0.85);
-      font-weight: 400;
+      font-weight: 500;
     }
 
-    .unread-badge {
-      background: var(--gold);
-      color: var(--navy-dark);
-      border-radius: 2px;
-      font-size: 0.6rem;
-      font-weight: 600;
-      padding: 0.1rem 0.4rem;
-      margin-left: auto;
-      letter-spacing: 0.03em;
-    }
-
-    /* ── Chat Area ───────────────────────────────────────────── */
+    /* Chat area */
     .chat-area {
       flex: 1;
       display: flex;
       flex-direction: column;
-      height: 100vh;
-      background: var(--cream);
+      background: var(--bg);
     }
 
     .chat-header {
-      padding: 0.9rem 1.8rem;
+      padding: 1.5rem;
+      background: var(--surface);
       border-bottom: 1px solid var(--border);
-      background: var(--white);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 60px;
     }
 
     .chat-contact {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 1rem;
     }
 
-    .chat-avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 2px;
-      background: var(--navy);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--serif);
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--gold-lt);
-    }
-
-    .chat-contact-name {
-      font-family: var(--serif);
+    .chat-contact h3 {
       font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--navy);
-      letter-spacing: 0.01em;
+      font-weight: 600;
     }
 
-    .e2ee-indicator {
+    .e2ee-badge {
+      padding: 0.4rem 0.8rem;
+      background: rgba(76, 175, 130, 0.1);
+      border: 1px solid rgba(76, 175, 130, 0.3);
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--success);
       display: flex;
       align-items: center;
-      gap: 0.35rem;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      padding: 0.25rem 0.7rem;
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--gold);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: var(--cream);
+      gap: 0.5rem;
     }
 
     .messages-container {
       flex: 1;
       overflow-y: auto;
-      padding: 1.8rem 2rem;
+      padding: 2rem;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 1rem;
     }
 
-    .messages-container::-webkit-scrollbar { width: 4px; }
-    .messages-container::-webkit-scrollbar-track { background: transparent; }
-    .messages-container::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-    .message-wrap {
+    .message {
+      max-width: 70%;
       display: flex;
       flex-direction: column;
-      max-width: 62%;
     }
 
-    .message-wrap.sent { align-self: flex-end; }
-    .message-wrap.received { align-self: flex-start; }
-
-    .message-bubble {
-      padding: 0.7rem 1rem;
-      font-size: 0.88rem;
-      line-height: 1.55;
-      word-break: break-word;
-      border-radius: 2px;
+    .message.sent {
+      align-self: flex-end;
     }
 
-    .sent .message-bubble {
-      background: var(--navy);
-      color: var(--cream);
-      border-bottom-right-radius: 0;
+    .message.received {
+      align-self: flex-start;
     }
 
-    .received .message-bubble {
-      background: var(--white);
-      color: var(--text-body);
-      border: 1px solid var(--border-lt);
-      border-bottom-left-radius: 0;
+    .message-content {
+      padding: 0.85rem 1.2rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      word-wrap: break-word;
+    }
+
+    .sent .message-content {
+      background: var(--primary);
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+
+    .received .message-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-bottom-left-radius: 4px;
     }
 
     .message-meta {
+      margin-top: 0.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      margin-top: 0.25rem;
-      padding: 0 0.1rem;
     }
 
-    .sent .message-meta { justify-content: flex-end; }
-
-    .message-time {
-      font-size: 0.62rem;
-      color: var(--text-muted);
-      font-family: var(--mono);
+    .sent .message-meta {
+      justify-content: flex-end;
     }
 
-    .hash-tag {
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      color: var(--gold);
-      opacity: 0.6;
+    .hash-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
       cursor: help;
     }
 
-    /* Chat input */
-    .chat-input-area {
-      padding: 1rem 2rem;
-      border-top: 1px solid var(--border);
-      background: var(--white);
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
+    .hash-indicator.verified {
+      color: var(--success);
     }
 
-    .chat-input-area input {
+    .hash-indicator.failed {
+      color: var(--danger);
+    }
+
+    .chat-input {
+      padding: 1.5rem;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 1rem;
+    }
+
+    .chat-input input {
       flex: 1;
-      background: var(--cream);
-      font-size: 0.88rem;
-      border-radius: 2px;
+      background: var(--bg);
     }
 
     .btn-send {
-      background: var(--navy);
+      padding: 0 2rem;
+      background: var(--primary);
       border: none;
-      border-radius: 2px;
-      color: var(--cream);
+      border-radius: 6px;
+      color: white;
+      font-weight: 600;
       cursor: pointer;
-      font-size: 0.75rem;
-      font-family: var(--sans);
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0 1.2rem;
-      height: 38px;
-      white-space: nowrap;
-      transition: background 0.15s;
+      transition: background 0.2s;
     }
 
-    .btn-send:hover { background: var(--navy-mid); }
+    .btn-send:hover {
+      background: var(--primary-dark);
+    }
 
-    /* No chat selected */
-    .no-chat-selected {
+    .empty-state {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.8rem;
-    }
-
-    .no-chat-emblem {
-      width: 56px;
-      height: 56px;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0.4rem;
-    }
-
-    .no-chat-emblem svg {
-      width: 24px;
-      height: 24px;
-      stroke: var(--gold);
-      fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .no-chat-selected h2 {
-      font-family: var(--serif);
-      font-size: 1.25rem;
-      color: var(--navy);
-      font-weight: 500;
-    }
-
-    .no-chat-selected p {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      max-width: 260px;
-      text-align: center;
-      line-height: 1.6;
-      font-weight: 300;
-    }
-
-    /* Empty chat */
-    .empty-chat {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
+      gap: 1rem;
       color: var(--text-muted);
     }
 
-    .empty-chat p { font-size: 0.82rem; font-weight: 300; }
-
-    /* Spinner */
-    .spinner {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      border: 2px solid rgba(245,242,236,0.2);
-      border-top-color: var(--cream);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      vertical-align: middle;
-      margin-right: 4px;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* Footer sidebar */
-    .sidebar-footer {
-      padding: 0.8rem 1.2rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .security-label {
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      color: rgba(168,137,90,0.5);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+    .empty-state svg {
+      width: 64px;
+      height: 64px;
+      stroke: var(--border);
     }
   </style>
 </head>
+
 <body>
 
-<!-- ══════════════ AUTH SCREEN ══════════════ -->
-<div id="auth-screen">
-  <div class="auth-header">
-    <div class="auth-emblem">
-      <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="1"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-    </div>
-    <div class="auth-title">SecureChat</div>
-    <p class="auth-subtitle">Plataforma de mensajería cifrada de extremo a extremo</p>
-    <div class="auth-divider">
-      <span>SHA-256 · RSA-2048 · AES-256-GCM</span>
+  <!-- AUTH SCREEN -->
+  <div id="auth-screen">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <h1>🔐 SecureChat Simple</h1>
+        <p>SHA-256 · RSA-2048 · AES-GCM</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+        <button class="tab-btn" onclick="switchTab('register')">Registro</button>
+      </div>
+
+      <!-- Login -->
+      <div id="tab-login">
+        <div class="form-group">
+          <label>Usuario</label>
+          <input type="text" id="login-username" placeholder="Tu username" />
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="login-password" placeholder="Tu password" />
+        </div>
+        <button class="btn-primary" onclick="handleLogin()">Ingresar</button>
+        <div class="error-msg" id="login-error"></div>
+      </div>
+
+      <!-- Register -->
+      <div id="tab-register" style="display:none">
+        <div class="form-group">
+          <label>Usuario</label>
+          <input type="text" id="reg-username" placeholder="Elige un username" />
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="reg-password" placeholder="Mínimo 6 caracteres" />
+        </div>
+        <button class="btn-primary" onclick="handleRegister()">Crear cuenta</button>
+        <div class="error-msg" id="reg-error"></div>
+        <div class="crypto-note">
+          Se generará un par de claves RSA-2048<br>
+          en tu navegador (la privada NUNCA sale)
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="auth-card">
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab('login')">Iniciar sesión</button>
-      <button class="tab-btn" onclick="switchTab('register')">Nueva cuenta</button>
-    </div>
-
-    <!-- Login -->
-    <div id="tab-login">
-      <div class="form-group">
-        <label>Usuario</label>
-        <input type="text" id="login-username" placeholder="Ingrese su usuario" autocomplete="username" />
+  <!-- APP SCREEN -->
+  <div id="app-screen">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h2>Contactos</h2>
+        <div class="user-info">
+          <span id="current-username">—</span>
+          <button class="btn-logout" onclick="handleLogout()">Salir</button>
+        </div>
       </div>
-      <div class="form-group">
-        <label>Contraseña</label>
-        <input type="password" id="login-password" placeholder="••••••••••" autocomplete="current-password" />
-      </div>
-      <button class="btn-primary" id="btn-login" onclick="handleLogin()">Ingresar</button>
-      <div class="error-msg" id="login-error"></div>
-    </div>
-
-    <!-- Register -->
-    <div id="tab-register" style="display:none">
-      <div class="form-group">
-        <label>Usuario</label>
-        <input type="text" id="reg-username" placeholder="Elija un nombre de usuario" autocomplete="username" />
-      </div>
-      <div class="form-group">
-        <label>Contraseña</label>
-        <input type="password" id="reg-password" placeholder="Mínimo 6 caracteres" autocomplete="new-password" />
-      </div>
-      <button class="btn-primary" id="btn-register" onclick="handleRegister()">Crear cuenta</button>
-      <div class="error-msg" id="reg-error"></div>
-      <p class="keygen-notice">Se generará un par de claves RSA-2048 en este dispositivo</p>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ APP SCREEN ══════════════ -->
-<div id="app-screen">
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="sidebar-header">
-      <div class="app-brand">
-        <div class="app-brand-dot"></div>
-        SecureChat
-      </div>
-      <div class="sidebar-user-row">
-        <span class="sidebar-username" id="sidebar-username">—</span>
-        <button class="btn-logout" onclick="handleLogout()">Salir</button>
+      <div class="contacts-list" id="contacts-list">
+        <div style="padding:2rem;text-align:center;color:var(--text-muted);">
+          Cargando...
+        </div>
       </div>
     </div>
 
-    <div class="search-bar">
-      <input type="text" id="search-contacts" placeholder="Buscar usuario..." oninput="filterContacts()" />
-    </div>
-
-    <div class="sidebar-section-label">Contactos</div>
-
-    <div class="contacts-list" id="contacts-list">
-      <div style="padding:1.5rem 1.2rem;color:rgba(255,255,255,0.25);font-size:0.78rem;">
-        Cargando...
+    <!-- Chat Area -->
+    <div class="chat-area">
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </svg>
+        <p>Selecciona un contacto para chatear</p>
       </div>
-    </div>
-
-    <div class="sidebar-footer">
-      <div class="security-label">Cifrado de extremo a extremo activo</div>
     </div>
   </div>
 
-  <!-- Chat Area -->
-  <div class="chat-area" id="chat-area">
-    <div class="no-chat-selected">
-      <div class="no-chat-emblem">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      </div>
-      <h2>Bienvenido</h2>
-      <p>Seleccione un contacto para iniciar una conversación cifrada de extremo a extremo.</p>
-    </div>
-  </div>
-</div>
+  <script>
+    const API = 'http://localhost:3001/api';
 
-<script>
-// ══════════════════════════════════════════════════════════════════════════
-//  CONFIGURACIÓN
-// ══════════════════════════════════════════════════════════════════════════
-const API = 'http://localhost:3001/api';
+    let state = {
+      userId: null,
+      username: null,
+      privateKey: null,
+      publicKey: null,
+      currentChat: null,
+      users: [],
+      pollInterval: null,
+    };
 
-let state = {
-  token:       null,
-  userId:      null,
-  username:    null,
-  privateKey:  null,
-  publicKey:   null,
-  currentChat: null,
-  users:       [],
-  pollInterval: null,
-};
+    // ═══════════════════════════════════════════════════════════
+    //  [SHA-256] Hash functions
+    // ═══════════════════════════════════════════════════════════
+    async function sha256(text) {
+      const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+      return Array.from(new Uint8Array(buffer))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+    }
 
-// ══════════════════════════════════════════════════════════════════════════
-//  [SHA-256] — Web Crypto API
-// ══════════════════════════════════════════════════════════════════════════
-async function sha256(text) {
-  const encoded = new TextEncoder().encode(text);
-  const hashBuf = await crypto.subtle.digest('SHA-256', encoded);
-  return Array.from(new Uint8Array(hashBuf))
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
-}
+    // ═══════════════════════════════════════════════════════════
+    //  [RSA-2048] Key generation
+    // ═══════════════════════════════════════════════════════════
+    async function generateRSAKeys() {
+      const keyPair = await crypto.subtle.generateKey(
+        {
+          name: 'RSA-OAEP',
+          modulusLength: 2048,
+          publicExponent: new Uint8Array([1, 0, 1]),
+          hash: 'SHA-256'
+        },
+        true,
+        ['encrypt', 'decrypt']
+      );
 
-// ══════════════════════════════════════════════════════════════════════════
-//  [RSA-2048] — Generación de par de claves (E2EE)
-// ══════════════════════════════════════════════════════════════════════════
-async function generateRSAKeyPair() {
-  const keyPair = await crypto.subtle.generateKey(
-    { name: 'RSA-OAEP', modulusLength: 2048, publicExponent: new Uint8Array([1, 0, 1]), hash: 'SHA-256' },
-    true, ['encrypt', 'decrypt']
-  );
+      const publicKeyBuffer = await crypto.subtle.exportKey('spki', keyPair.publicKey);
+      const publicKeyBase64 = btoa(String.fromCharCode(...new Uint8Array(publicKeyBuffer)));
 
-  const pubKeyBuf     = await crypto.subtle.exportKey('spki', keyPair.publicKey);
-  const pubKeyBase64  = btoa(String.fromCharCode(...new Uint8Array(pubKeyBuf)));
+      const privateKeyBuffer = await crypto.subtle.exportKey('pkcs8', keyPair.privateKey);
+      const privateKeyBase64 = btoa(String.fromCharCode(...new Uint8Array(privateKeyBuffer)));
 
-  const privKeyBuf    = await crypto.subtle.exportKey('pkcs8', keyPair.privateKey);
-  const privKeyBase64 = btoa(String.fromCharCode(...new Uint8Array(privKeyBuf)));
+      return {
+        publicKey: keyPair.publicKey,
+        privateKey: keyPair.privateKey,
+        publicKeyBase64,
+        privateKeyBase64
+      };
+    }
 
-  return {
-    publicKey:        keyPair.publicKey,
-    privateKey:       keyPair.privateKey,
-    publicKeyBase64:  pubKeyBase64,
-    privateKeyBase64: privKeyBase64,
-  };
-}
+    async function importPublicKey(base64) {
+      const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+      return await crypto.subtle.importKey(
+        'spki',
+        bytes.buffer,
+        { name: 'RSA-OAEP', hash: 'SHA-256' },
+        false,
+        ['encrypt']
+      );
+    }
 
-async function importPublicKey(base64) {
-  const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
-  return await crypto.subtle.importKey('spki', bytes.buffer, { name: 'RSA-OAEP', hash: 'SHA-256' }, false, ['encrypt']);
-}
+    async function importPrivateKey(base64) {
+      const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+      return await crypto.subtle.importKey(
+        'pkcs8',
+        bytes.buffer,
+        { name: 'RSA-OAEP', hash: 'SHA-256' },
+        false,
+        ['decrypt']
+      );
+    }
 
-async function importPrivateKey(base64) {
-  const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
-  return await crypto.subtle.importKey('pkcs8', bytes.buffer, { name: 'RSA-OAEP', hash: 'SHA-256' }, false, ['decrypt']);
-}
+    // ═══════════════════════════════════════════════════════════
+    //  [AES-GCM] Encrypt / Decrypt
+    // ═══════════════════════════════════════════════════════════
+    async function encryptMessage(plaintext, recipientPublicKey, senderPublicKey) {
+      // Generar clave AES efímera
+      const aesKey = await crypto.subtle.generateKey(
+        { name: 'AES-GCM', length: 256 },
+        true,
+        ['encrypt']
+      );
 
-// ══════════════════════════════════════════════════════════════════════════
-//  [AES-256-GCM + RSA] — Cifrado/Descifrado E2EE
-// ══════════════════════════════════════════════════════════════════════════
-async function encryptMessage(plaintext, recipientPublicKey, senderPublicKey) {
-  const aesKey = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']);
-  const iv = crypto.getRandomValues(new Uint8Array(12));
-  const cipherBuffer = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, aesKey, new TextEncoder().encode(plaintext));
-  const aesKeyRaw = await crypto.subtle.exportKey('raw', aesKey);
-  const encKeyRecipient = await crypto.subtle.encrypt({ name: 'RSA-OAEP' }, recipientPublicKey, aesKeyRaw);
-  const encKeySender    = await crypto.subtle.encrypt({ name: 'RSA-OAEP' }, senderPublicKey, aesKeyRaw);
-  const messageHash = await sha256(plaintext);
-  return {
-    contentEncrypted:      arrayBufferToBase64(cipherBuffer),
-    iv:                    arrayBufferToBase64(iv.buffer),
-    encryptedKeyRecipient: arrayBufferToBase64(encKeyRecipient),
-    encryptedKeySender:    arrayBufferToBase64(encKeySender),
-    messageHash,
-  };
-}
+      // Cifrar mensaje con AES
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const cipherBuffer = await crypto.subtle.encrypt(
+        { name: 'AES-GCM', iv },
+        aesKey,
+        new TextEncoder().encode(plaintext)
+      );
 
-async function decryptMessage(msg, myPrivateKey, myUserId) {
-  try {
-    const encAesKeyB64 = parseInt(msg.recipient_id) === parseInt(myUserId)
-      ? msg.encrypted_key_recipient : msg.encrypted_key_sender;
-    const aesKeyRaw = await crypto.subtle.decrypt({ name: 'RSA-OAEP' }, myPrivateKey, base64ToArrayBuffer(encAesKeyB64));
-    const aesKey = await crypto.subtle.importKey('raw', aesKeyRaw, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
-    const plainBuf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: new Uint8Array(base64ToArrayBuffer(msg.iv)) }, aesKey, base64ToArrayBuffer(msg.content_encrypted));
-    const plaintext = new TextDecoder().decode(plainBuf);
-    const computedHash = await sha256(plaintext);
-    return { plaintext, hashOk: computedHash === msg.message_hash, hash: computedHash };
-  } catch (e) {
-    return { plaintext: '[No se pudo descifrar]', hashOk: false, hash: '' };
-  }
-}
+      // Cifrar clave AES con RSA del destinatario y del remitente
+      const aesKeyRaw = await crypto.subtle.exportKey('raw', aesKey);
+      const encryptedKeyRecipient = await crypto.subtle.encrypt(
+        { name: 'RSA-OAEP' },
+        recipientPublicKey,
+        aesKeyRaw
+      );
+      const encryptedKeySender = await crypto.subtle.encrypt(
+        { name: 'RSA-OAEP' },
+        senderPublicKey,
+        aesKeyRaw
+      );
 
-function arrayBufferToBase64(buffer) {
-  return btoa(String.fromCharCode(...new Uint8Array(buffer)));
-}
-function base64ToArrayBuffer(base64) {
-  return Uint8Array.from(atob(base64), c => c.charCodeAt(0)).buffer;
-}
+      // Hash del mensaje original
+      const messageHash = await sha256(plaintext);
 
-// ══════════════════════════════════════════════════════════════════════════
-//  AUTENTICACIÓN
-// ══════════════════════════════════════════════════════════════════════════
-function switchTab(tab) {
-  document.getElementById('tab-login').style.display    = tab === 'login'    ? '' : 'none';
-  document.getElementById('tab-register').style.display = tab === 'register' ? '' : 'none';
-  document.querySelectorAll('.tab-btn').forEach((b, i) => {
-    b.classList.toggle('active', (tab === 'login' && i === 0) || (tab === 'register' && i === 1));
-  });
-}
+      // Empaquetar el IV junto con el contenido cifrado para no modificar la Base de Datos
+      const combinedIvAndCipher = new Uint8Array(12 + cipherBuffer.byteLength);
+      combinedIvAndCipher.set(iv, 0);
+      combinedIvAndCipher.set(new Uint8Array(cipherBuffer), 12);
 
-async function handleRegister() {
-  const username = document.getElementById('reg-username').value.trim();
-  const password = document.getElementById('reg-password').value;
-  const errEl    = document.getElementById('reg-error');
-  const btn      = document.getElementById('btn-register');
-  errEl.style.display = 'none';
-  if (!username || !password) return showError(errEl, 'Complete todos los campos.');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>Generando claves RSA...';
-  try {
-    const keyPair = await generateRSAKeyPair();
-    btn.innerHTML = '<span class="spinner"></span>Registrando...';
-    const res  = await fetch(`${API}/register`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password, publicKey: keyPair.publicKeyBase64 }),
-    });
-    const data = await res.json();
-    if (!res.ok) return showError(errEl, data.error);
-    sessionStorage.setItem(`pk_${username}`, keyPair.privateKeyBase64);
-    showError(errEl, '✓ Cuenta creada. Puede iniciar sesión.', true);
-    switchTab('login');
-    document.getElementById('login-username').value = username;
-  } catch (e) {
-    showError(errEl, 'Error: ' + e.message);
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = 'Crear cuenta';
-  }
-}
+      // Empaquetar ambas llaves como un JSON text en la columna encrypted_key
+      const combinedKeys = JSON.stringify({
+        recipient: arrayBufferToBase64(encryptedKeyRecipient),
+        sender: arrayBufferToBase64(encryptedKeySender)
+      });
 
-async function handleLogin() {
-  const username = document.getElementById('login-username').value.trim();
-  const password = document.getElementById('login-password').value;
-  const errEl    = document.getElementById('login-error');
-  const btn      = document.getElementById('btn-login');
-  errEl.style.display = 'none';
-  if (!username || !password) return showError(errEl, 'Complete todos los campos.');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>Verificando...';
-  try {
-    const res  = await fetch(`${API}/login`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
-    });
-    const data = await res.json();
-    if (!res.ok) return showError(errEl, data.error);
-    const privKeyB64 = sessionStorage.getItem(`pk_${username}`);
-    if (!privKeyB64) return showError(errEl, 'Clave privada no encontrada. ¿Se registró en este dispositivo?');
-    state.token      = data.token;
-    state.userId     = data.userId;
-    state.username   = data.username;
-    state.privateKey = await importPrivateKey(privKeyB64);
-    const pubRes    = await fetch(`${API}/users/${data.userId}/publickey`, { headers: { Authorization: `Bearer ${state.token}` } });
-    const pubData   = await pubRes.json();
-    state.publicKey = await importPublicKey(pubData.publicKey);
-    showApp();
-  } catch (e) {
-    showError(errEl, 'Error: ' + e.message);
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = 'Ingresar';
-  }
-}
+      return {
+        contentEncrypted: arrayBufferToBase64(combinedIvAndCipher.buffer),
+        encryptedKey: combinedKeys,
+        messageHash
+      };
+    }
 
-async function handleLogout() {
-  await fetch(`${API}/logout`, { method: 'POST', headers: { Authorization: `Bearer ${state.token}` } }).catch(() => {});
-  clearInterval(state.pollInterval);
-  state = { token: null, userId: null, username: null, privateKey: null, publicKey: null, currentChat: null, users: [], pollInterval: null };
-  document.getElementById('app-screen').style.display = 'none';
-  document.getElementById('auth-screen').style.display = '';
-}
+    async function decryptMessage(msg, myPrivateKey) {
+      try {
+        // Extraer la llave correcta del JSON string guardado en la BD
+        const keys = JSON.parse(msg.encrypted_key);
+        const myEncryptedKeyB64 = (msg.sender_id === state.userId) ? keys.sender : keys.recipient;
 
-// ══════════════════════════════════════════════════════════════════════════
-//  APP UI
-// ══════════════════════════════════════════════════════════════════════════
-function showApp() {
-  document.getElementById('auth-screen').style.display = 'none';
-  document.getElementById('app-screen').style.display  = 'flex';
-  document.getElementById('sidebar-username').textContent = state.username;
-  loadUsers();
-  state.pollInterval = setInterval(pollMessages, 3000);
-}
+        // Descifrar clave AES con mi RSA privada
+        const aesKeyRaw = await crypto.subtle.decrypt(
+          { name: 'RSA-OAEP' },
+          myPrivateKey,
+          base64ToArrayBuffer(myEncryptedKeyB64)
+        );
 
-async function loadUsers() {
-  const res   = await fetch(`${API}/users`, { headers: { Authorization: `Bearer ${state.token}` } });
-  state.users = await res.json();
-  renderContacts();
-}
+        // Importar clave AES
+        const aesKey = await crypto.subtle.importKey(
+          'raw',
+          aesKeyRaw,
+          { name: 'AES-GCM', length: 256 },
+          false,
+          ['decrypt']
+        );
 
-function filterContacts() {
-  renderContacts(document.getElementById('search-contacts').value.toLowerCase());
-}
+        // Extraer el IV y el cipherText del content_encrypted empaquetado
+        const combinedIvAndCipher = new Uint8Array(base64ToArrayBuffer(msg.content_encrypted));
+        const iv = combinedIvAndCipher.slice(0, 12);
+        const cipherText = combinedIvAndCipher.slice(12);
 
-function renderContacts(filter = '') {
-  const list     = document.getElementById('contacts-list');
-  const filtered = state.users.filter(u => u.username.toLowerCase().includes(filter));
-  if (!filtered.length) {
-    list.innerHTML = '<div style="padding:1.2rem;color:rgba(255,255,255,0.2);font-size:0.78rem;">Sin resultados</div>';
-    return;
-  }
-  list.innerHTML = filtered.map(u => `
-    <div class="contact-item ${state.currentChat?.userId === u.id ? 'active' : ''}"
-         onclick="openChat(${u.id}, '${u.username}', '${u.public_key}')">
+        // Descifrar mensaje
+        const plainBuffer = await crypto.subtle.decrypt(
+          { name: 'AES-GCM', iv },
+          aesKey,
+          cipherText
+        );
+
+        const plaintext = new TextDecoder().decode(plainBuffer);
+
+        // Verificar hash
+        const computedHash = await sha256(plaintext);
+        const hashOk = computedHash === msg.message_hash;
+
+        return { plaintext, hashOk, hash: computedHash };
+      } catch (e) {
+        console.error('Error descifrando:', e);
+        return { plaintext: '[Error al descifrar]', hashOk: false, hash: '' };
+      }
+    }
+
+    function arrayBufferToBase64(buffer) {
+      return btoa(String.fromCharCode(...new Uint8Array(buffer)));
+    }
+
+    function base64ToArrayBuffer(base64) {
+      return Uint8Array.from(atob(base64), c => c.charCodeAt(0)).buffer;
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    //  AUTH
+    // ═══════════════════════════════════════════════════════════
+    function switchTab(tab) {
+      document.getElementById('tab-login').style.display = tab === 'login' ? '' : 'none';
+      document.getElementById('tab-register').style.display = tab === 'register' ? '' : 'none';
+      document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', (tab === 'login' && i === 0) || (tab === 'register' && i === 1));
+      });
+    }
+
+    async function handleRegister() {
+      const username = document.getElementById('reg-username').value.trim();
+      const password = document.getElementById('reg-password').value;
+      const errorEl = document.getElementById('reg-error');
+
+      errorEl.style.display = 'none';
+
+      if (!username || !password) {
+        return showError(errorEl, 'Completa todos los campos');
+      }
+
+      try {
+        // Generar par de claves RSA
+        const keys = await generateRSAKeys();
+
+        // Registrar usuario
+        const res = await fetch(`${API}/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username,
+            password,
+            publicKey: keys.publicKeyBase64
+          })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          return showError(errorEl, data.error);
+        }
+
+        // Guardar clave privada en sessionStorage
+        sessionStorage.setItem(`pk_${username}`, keys.privateKeyBase64);
+
+        showSuccess(errorEl, '✓ Cuenta creada. Puedes iniciar sesión.');
+        setTimeout(() => {
+          switchTab('login');
+          document.getElementById('login-username').value = username;
+        }, 1500);
+
+      } catch (e) {
+        showError(errorEl, 'Error: ' + e.message);
+      }
+    }
+
+    async function handleLogin() {
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value;
+      const errorEl = document.getElementById('login-error');
+
+      errorEl.style.display = 'none';
+
+      if (!username || !password) {
+        return showError(errorEl, 'Completa todos los campos');
+      }
+
+      try {
+        const res = await fetch(`${API}/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          return showError(errorEl, data.error);
+        }
+
+        // Recuperar clave privada
+        const privateKeyBase64 = sessionStorage.getItem(`pk_${username}`);
+        if (!privateKeyBase64) {
+          return showError(errorEl, 'Clave privada no encontrada. ¿Te registraste en este dispositivo?');
+        }
+
+        // Configurar estado
+        state.userId = data.userId;
+        state.username = data.username;
+        state.privateKey = await importPrivateKey(privateKeyBase64);
+        state.publicKey = await importPublicKey(data.publicKey);
+
+        showApp();
+
+      } catch (e) {
+        showError(errorEl, 'Error: ' + e.message);
+      }
+    }
+
+    async function handleLogout() {
+      await fetch(`${API}/logout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: state.userId })
+      }).catch(() => { });
+
+      clearInterval(state.pollInterval);
+
+      state = {
+        userId: null,
+        username: null,
+        privateKey: null,
+        publicKey: null,
+        currentChat: null,
+        users: [],
+        pollInterval: null
+      };
+
+      document.getElementById('app-screen').style.display = 'none';
+      document.getElementById('auth-screen').style.display = '';
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    //  APP UI
+    // ═══════════════════════════════════════════════════════════
+    function showApp() {
+      document.getElementById('auth-screen').style.display = 'none';
+      document.getElementById('app-screen').style.display = 'flex';
+      document.getElementById('current-username').textContent = state.username;
+
+      loadUsers();
+      state.pollInterval = setInterval(async () => {
+        await loadUsers();
+        if (state.currentChat) {
+          await loadMessages();
+        }
+      }, 3000);
+    }
+
+    async function loadUsers() {
+      try {
+        const res = await fetch(`${API}/users/${state.userId}`);
+        state.users = await res.json();
+        renderContacts();
+      } catch (e) {
+        console.error('Error cargando usuarios:', e);
+      }
+    }
+
+    function renderContacts() {
+      const list = document.getElementById('contacts-list');
+
+      if (!state.users.length) {
+        list.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--text-muted);">No hay otros usuarios</div>';
+        return;
+      }
+
+      list.innerHTML = state.users.map(user => `
+    <div class="contact-item ${state.currentChat?.userId === user.id ? 'active' : ''}"
+         onclick='openChat(${JSON.stringify(user)})'>
       <div class="avatar">
-        ${u.username[0].toUpperCase()}
-        ${u.is_online ? '<div class="online-dot"></div>' : ''}
+        ${user.username[0].toUpperCase()}
+        ${user.is_online ? '<div class="online-dot"></div>' : ''}
       </div>
-      <span class="contact-name">${u.username}</span>
+      <div class="contact-name">${user.username}</div>
     </div>
   `).join('');
-}
+    }
 
-async function openChat(userId, username, publicKeyB64) {
-  state.currentChat = { userId, username, publicKey: await importPublicKey(publicKeyB64) };
-  renderContacts();
-  renderChatArea();
-  loadMessages();
-}
+    async function openChat(user) {
+      state.currentChat = {
+        userId: user.id,
+        username: user.username,
+        publicKey: await importPublicKey(user.public_key)
+      };
 
-function renderChatArea() {
-  const { username } = state.currentChat;
-  document.getElementById('chat-area').innerHTML = `
+      renderContacts();
+      renderChatArea();
+      loadMessages();
+    }
+
+    function renderChatArea() {
+      const chatArea = document.querySelector('.chat-area');
+      chatArea.innerHTML = `
     <div class="chat-header">
       <div class="chat-contact">
-        <div class="chat-avatar">${username[0].toUpperCase()}</div>
-        <span class="chat-contact-name">${username}</span>
+        <div class="avatar">${state.currentChat.username[0].toUpperCase()}</div>
+        <h3>${state.currentChat.username}</h3>
       </div>
-      <div class="e2ee-indicator">&#x1F512; Cifrado extremo a extremo</div>
+      <div class="e2ee-badge">
+        🔒 E2EE activo
+      </div>
     </div>
     <div class="messages-container" id="messages-container">
-      <div style="text-align:center;color:var(--text-muted);font-size:0.78rem;padding:2rem;">
-        Cargando conversación...
+      <div style="text-align:center;color:var(--text-muted);padding:2rem;">
+        Cargando mensajes...
       </div>
     </div>
-    <div class="chat-input-area">
-      <input type="text" id="msg-input"
-             placeholder="Redacte su mensaje — se cifrará automáticamente con AES-256-GCM"
-             onkeydown="if(event.key==='Enter')sendMessage()" autocomplete="off" />
+    <div class="chat-input">
+      <input type="text" id="msg-input" 
+             placeholder="Escribe tu mensaje (se cifrará con AES-256-GCM)"
+             onkeypress="if(event.key==='Enter')sendMessage()" />
       <button class="btn-send" onclick="sendMessage()">Enviar</button>
     </div>
   `;
-  document.getElementById('msg-input').focus();
-}
+    }
 
-async function loadMessages() {
-  if (!state.currentChat) return;
-  const res  = await fetch(`${API}/messages/${state.currentChat.userId}`, { headers: { Authorization: `Bearer ${state.token}` } });
-  await renderMessages(await res.json());
-}
+    async function loadMessages() {
+      if (!state.currentChat) return;
 
-async function renderMessages(msgs) {
-  const container = document.getElementById('messages-container');
-  if (!container) return;
-  if (!msgs.length) {
-    container.innerHTML = `<div class="empty-chat"><p>No hay mensajes. Inicie la conversación.</p></div>`;
-    return;
-  }
-  const rendered = await Promise.all(msgs.map(async (msg) => {
-    const isSent = parseInt(msg.sender_id) === parseInt(state.userId);
-    const { plaintext, hashOk, hash } = await decryptMessage(msg, state.privateKey, state.userId);
-    const time      = new Date(msg.sent_at).toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' });
-    const hashShort = hash.substring(0, 10) + '…';
-    return `
-      <div class="message-wrap ${isSent ? 'sent' : 'received'}">
-        <div class="message-bubble">${escapeHtml(plaintext)}</div>
+      try {
+        const res = await fetch(`${API}/messages/${state.userId}/${state.currentChat.userId}`);
+        const messages = await res.json();
+        await renderMessages(messages);
+      } catch (e) {
+        console.error('Error cargando mensajes:', e);
+      }
+    }
+
+    async function renderMessages(messages) {
+      const container = document.getElementById('messages-container');
+      if (!container) return;
+
+      if (!messages.length) {
+        container.innerHTML = '<div class="empty-state"><p>No hay mensajes. ¡Inicia la conversación!</p></div>';
+        return;
+      }
+
+      const rendered = await Promise.all(messages.map(async msg => {
+        const isSent = msg.sender_id === state.userId;
+        const { plaintext, hashOk, hash } = await decryptMessage(msg, state.privateKey);
+        const time = new Date(msg.sent_at).toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' });
+
+        return `
+      <div class="message ${isSent ? 'sent' : 'received'}">
+        <div class="message-content">${escapeHtml(plaintext)}</div>
         <div class="message-meta">
-          <span class="message-time">${time}</span>
-          <span class="hash-tag" title="SHA-256: ${hash} — Integridad: ${hashOk ? 'Verificada' : 'FALLO'}">
-            ${hashShort} ${hashOk ? '✓' : '⚠'}
+          <span>${time}</span>
+          <span class="hash-indicator ${hashOk ? 'verified' : 'failed'}" 
+                title="SHA-256: ${hash}">
+            ${hash.substring(0, 8)}... ${hashOk ? '✓' : '✗'}
           </span>
         </div>
-      </div>`;
-  }));
-  container.innerHTML = rendered.join('');
-  container.scrollTop = container.scrollHeight;
-}
+      </div>
+    `;
+      }));
 
-async function sendMessage() {
-  const input = document.getElementById('msg-input');
-  const text  = input?.value.trim();
-  if (!text || !state.currentChat) return;
-  input.value = '';
-  input.disabled = true;
-  try {
-    const encrypted = await encryptMessage(text, state.currentChat.publicKey, state.publicKey);
-    await fetch(`${API}/messages`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${state.token}` },
-      body: JSON.stringify({
-        recipientId:           state.currentChat.userId,
-        contentEncrypted:      encrypted.contentEncrypted,
-        iv:                    encrypted.iv,
-        encryptedKeyRecipient: encrypted.encryptedKeyRecipient,
-        encryptedKeySender:    encrypted.encryptedKeySender,
-        messageHash:           encrypted.messageHash,
-      }),
-    });
-    await loadMessages();
-  } catch (e) { console.error('Error al enviar:', e); }
-  finally { input.disabled = false; input.focus(); }
-}
+      container.innerHTML = rendered.join('');
+      container.scrollTop = container.scrollHeight;
+    }
 
-async function pollMessages() {
-  if (state.currentChat) await loadMessages();
-  await loadUsers();
-}
+    async function sendMessage() {
+      const input = document.getElementById('msg-input');
+      const text = input?.value.trim();
 
-function showError(el, msg, success = false) {
-  el.textContent = msg;
-  el.style.display = 'block';
-  if (success) {
-    el.style.borderLeftColor = 'var(--success)';
-    el.style.color = 'var(--success)';
-    el.style.background = '#f1f8f4';
-  } else {
-    el.style.borderLeftColor = 'var(--danger)';
-    el.style.color = 'var(--danger)';
-    el.style.background = '#fdf1f1';
-  }
-}
+      if (!text || !state.currentChat) return;
 
-function escapeHtml(text) {
-  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+      input.value = '';
+      input.disabled = true;
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
-    if (document.getElementById('tab-login').style.display !== 'none') handleLogin();
-    else handleRegister();
-  }
-});
-</script>
+      try {
+        const encrypted = await encryptMessage(text, state.currentChat.publicKey, state.publicKey);
+
+        await fetch(`${API}/messages`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            senderId: state.userId,
+            recipientId: state.currentChat.userId,
+            contentEncrypted: encrypted.contentEncrypted,
+            encryptedKey: encrypted.encryptedKey,
+            messageHash: encrypted.messageHash
+          })
+        });
+
+        await loadMessages();
+
+      } catch (e) {
+        console.error('Error enviando mensaje:', e);
+      } finally {
+        input.disabled = false;
+        input.focus();
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    //  UTILITIES
+    // ═══════════════════════════════════════════════════════════
+    function showError(el, msg) {
+      el.textContent = msg;
+      el.style.display = 'block';
+      el.classList.remove('success-msg');
+    }
+
+    function showSuccess(el, msg) {
+      el.textContent = msg;
+      el.style.display = 'block';
+      el.classList.add('success-msg');
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
 </body>
+
 </html>
