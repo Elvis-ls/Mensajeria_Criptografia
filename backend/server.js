@@ -1,16 +1,3 @@
-/**
- * SecureChat SIMPLIFICADO - Backend
- * ==================================
- * Criptografía implementada:
- *   [SHA-256] → hash de contraseñas (salt + password)
- *   [RSA/AES] → E2EE (cifrado/descifrado en cliente)
- * 
- * SIMPLIFICACIONES:
- *   - Sin tabla sessions (login solo verifica y marca online)
- *   - Sin tokens de sesión (autenticación básica)
- *   - Mensajes solo con cifrado esencial
- */
-
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -29,7 +16,7 @@ const pool = new Pool({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASSWORD || '',
-  database: process.env.DB_NAME || 'securechat_simple',
+  database: process.env.DB_NAME || 'mensajeria_criptografia_v2',
   port: parseInt(process.env.DB_PORT || '5432'),
 });
 
@@ -48,7 +35,7 @@ function hashPassword(password, salt) {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-//  AUTENTICACIÓN (sin sesiones, solo verificación)
+//  AUTENTICACIÓN
 // ═════════════════════════════════════════════════════════════════════════════
 
 /**
@@ -123,7 +110,7 @@ app.post('/api/login', async (req, res) => {
       return res.status(401).json({ error: 'Credenciales incorrectas' });
     }
 
-    // Marcar como online (sin crear sesión)
+    // Marcar como online
     await pool.query('UPDATE users SET is_online = TRUE WHERE id = $1', [user.id]);
 
     res.json({
